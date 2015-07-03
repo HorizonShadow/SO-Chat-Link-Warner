@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Link Warning
-// @namespace   Joshleblanc94@gmail.com
+// @namespace   ~
 // @include     http://chat.stackoverflow.com/rooms/1*
 // @version     1
 // @grant       none
