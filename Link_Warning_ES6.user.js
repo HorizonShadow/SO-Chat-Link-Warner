@@ -6,7 +6,7 @@ class AnchorTester {
     let hitTerms = [
       'rlemon',
       'rebecca',
-      'black,'
+      'black',
       'friday',
       'rebecca.blackfriday',
       'astley'
@@ -44,7 +44,6 @@ class ChatWatcher {
     this.mutationObserver.observe(this.chat, options);
   }
 }
-
 
 function mapcat(thing, fn) {
   return thing.reduce((prev, curr) => Array.from(prev).concat(...fn(curr)), fn(thing[0]), 0);

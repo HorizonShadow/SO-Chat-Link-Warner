@@ -66,19 +66,6 @@ var ChatWatcher = (function () {
   }
 
   _createClass(ChatWatcher, [{
-    key: 'findAnchors',
-    value: function findAnchors(addedNode) {
-      var contentAnchors = addedNode.querySelectorAll('.content a');
-      forEach(contentAnchors, function (anchor) {
-        return anchors.push(anchor);
-      });
-    }
-  }, {
-    key: 'checkAddedNodes',
-    value: function checkAddedNodes(mutation) {
-      forEach(mutation.addedNodes, function (addedNode) {});
-    }
-  }, {
     key: 'watch',
     value: function watch() {
       var options = {
@@ -110,9 +97,6 @@ function mapcat(thing, fn) {
   }, fn(thing[0]), 0);
 }
 
-function forEach(thing, fn) {
-  return [].forEach.call(thing, fn);
-}
 function markAnchor(a) {
   a.style.background = 'red';
 }
