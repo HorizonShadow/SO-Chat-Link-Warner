@@ -6,7 +6,7 @@ class AnchorTester {
     let hitTerms = [
       'rlemon',
       'rebecca',
-      'black',
+      'black,'
       'friday',
       'rebecca.blackfriday',
       'astley'
@@ -36,15 +36,6 @@ class ChatWatcher {
     return mapcat(mutations, addedNode => addedNode.querySelectorAll('.content a'));
   }
 
-  findAnchors(addedNode) {
-    var contentAnchors = addedNode.querySelectorAll(".content a");
-    forEach(contentAnchors, anchor => anchors.push(anchor));
-  }
-  checkAddedNodes(mutation) {
-    forEach(mutation.addedNodes, addedNode => {
-      
-    });
-  }
   watch() {
     let options = {
       childList: true,
@@ -53,16 +44,16 @@ class ChatWatcher {
     this.mutationObserver.observe(this.chat, options);
   }
 }
+
+
 function mapcat(thing, fn) {
   return thing.reduce((prev, curr) => Array.from(prev).concat(...fn(curr)), fn(thing[0]), 0);
 }
 
-function forEach(thing, fn) {
-  return [].forEach.call(thing, fn);
-}
 function markAnchor(a) {
   a.style.background = "red";
 }
+
 let chatWatcher = new ChatWatcher(chat, mutations => {
   ChatWatcher.filterAnchors(mutations).forEach(a => {
     new AnchorTester(a).test().then(b => {
