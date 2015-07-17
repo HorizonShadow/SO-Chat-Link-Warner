@@ -21,9 +21,8 @@ class AnchorTester {
     let tests = [this.title, this.embeddedFrame];
     return fetch('http://crossorigin.me/' + this.a.href).then(r => r.text()).then(s => {
       let doc = new DOMParser().parseFromString(s, "text/html");
-      return !tests.every(t => !t(doc));
+      return tests.some(t => t(doc));
     });
-  
   }
 }
 class ChatWatcher {
@@ -31,18 +30,20 @@ class ChatWatcher {
     this.chat = chat;  
     this.mutationObserver = new MutationObserver(fn);
   }
+  
   static filterAnchors(mutations) {
-    let anchors = [];
-    mutations.forEach(mutation => {
-      let addedNodes = mutation.addedNodes;
-      anchors = map(addedNodes, a => {
-        if(a.classList.contains("user-container") || a.classList.contains("message")) {
-          return a.querySelectorAll('.content a')
-        } else return null;
-      }).filter(Boolean);
+    mutations = mapcat(mutations, mutation => mutation.addedNodes)
+    return mapcat(mutations, addedNode => addedNode.querySelectorAll('.content a'));
+  }
+
+  findAnchors(addedNode) {
+    var contentAnchors = addedNode.querySelectorAll(".content a");
+    forEach(contentAnchors, anchor => anchors.push(anchor));
+  }
+  checkAddedNodes(mutation) {
+    forEach(mutation.addedNodes, addedNode => {
+      
     });
-    if(anchors.length > 0) anchors = [].reduce.call(anchors, (a,b) => [...a, ...b]);
-    return [].slice.call(anchors);
   }
   watch() {
     let options = {
@@ -52,11 +53,12 @@ class ChatWatcher {
     this.mutationObserver.observe(this.chat, options);
   }
 }
-function flatten (thing) {
-return [].reduce.call(thing,(a,b) => [].concat.call(a, b));
+function mapcat(thing, fn) {
+  return thing.reduce((prev, curr) => Array.from(prev).concat(...fn(curr)), fn(thing[0]), 0);
 }
-function map(target, fn) {
-  return [].map.call(target, fn)
+
+function forEach(thing, fn) {
+  return [].forEach.call(thing, fn);
 }
 function markAnchor(a) {
   a.style.background = "red";
