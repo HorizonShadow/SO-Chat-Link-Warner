@@ -37,7 +37,7 @@ var AnchorTester = (function () {
   }, {
     key: 'embeddedFrame',
     value: function embeddedFrame(d) {
-      return d.querySelector('frame');
+      return d.querySelector('frame') || d.querySelector('iframe');
     }
   }, {
     key: 'test',
@@ -46,7 +46,7 @@ var AnchorTester = (function () {
       return fetch('http://crossorigin.me/' + this.a.href).then(function (r) {
         return r.text();
       }).then(function (s) {
-        var doc = new DOMParser().parseFromString(s, 'text/html');
+        var doc = new DOMParser().parseFromString(s, "text/html");
         return tests.some(function (t) {
           return t(doc);
         });
@@ -98,8 +98,9 @@ function mapcat(thing, fn) {
 }
 
 function markAnchor(a) {
-  a.style.background = 'red';
+  a.style.background = "red";
 }
+
 var chatWatcher = new ChatWatcher(chat, function (mutations) {
   ChatWatcher.filterAnchors(mutations).forEach(function (a) {
     new AnchorTester(a).test().then(function (b) {
