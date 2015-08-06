@@ -15,7 +15,7 @@ class AnchorTester {
     return d.title.match(new RegExp(regex, 'i'));
   }
   embeddedFrame(d) {
-    return d.querySelector('frame') || d.querySelector('iframe');
+    return d.querySelector('frame');
   }
   test() {
     let tests = [this.title, this.embeddedFrame];
