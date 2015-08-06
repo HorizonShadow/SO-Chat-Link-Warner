@@ -37,7 +37,7 @@ var AnchorTester = (function () {
   }, {
     key: 'embeddedFrame',
     value: function embeddedFrame(d) {
-      return d.querySelector('frame') || d.querySelector('iframe');
+      return d.querySelector('frame');
     }
   }, {
     key: 'test',
